@@ -16,6 +16,7 @@ export const AddTasks: React.FC = () => {
   // destructuring data
   const {title, descr } = data;
   const [files, setFiles] = useState<any>(null)
+  const [deadlineTime,setDeadlineTime] = useState();
 
   useEffect(()=>{
     files && uploadFiles()
@@ -25,7 +26,8 @@ export const AddTasks: React.FC = () => {
     e.preventDefault()
     await addDoc(collection(dataBase, 'ToDoList'),{
       ...data,
-      timestamp: serverTimestamp()
+      timestamp: Date.now(),
+      deadline: deadlineTime
     })
     setData(initialState)
   }
@@ -51,6 +53,7 @@ export const AddTasks: React.FC = () => {
           <input type="text" name='title' value={title} placeholder="Задача" onChange={handleChange}/>
           <input type="text" name='descr' value={descr} placeholder="Описание" onChange={handleChange }/>
           <input type="file" onChange={(e:any) => setFiles(e.target.files[0])}/>
+          <input type="date" onChange={(e:any) => setDeadlineTime(e.target.value)}/>
           <button>Add</button>
       </form>
     </div>

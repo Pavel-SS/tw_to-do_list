@@ -1,3 +1,4 @@
+import dayjs from 'dayjs';
 import { collection, deleteDoc,updateDoc, doc, onSnapshot } from 'firebase/firestore';
 import React, { ChangeEvent, useState, useEffect } from 'react'
 import { dataBase } from '../../firebase';
@@ -8,6 +9,7 @@ type firebaseStateType = {
   file: string
   id: string
   timestamp: any
+  deadline: any
   title: string
 }
 
@@ -38,9 +40,9 @@ export const TasksList: React.FC = () => {
     return handleChange
   }
 
-  const handleEdit = async (task:firebaseStateType, title:string, id: string) => {
+  const handleEdit = async (task:firebaseStateType, title:string , descr:string, id: string) => {
     try{
-        await updateDoc(doc(dataBase, 'ToDoList', task.id), { title: title })
+        await updateDoc(doc(dataBase, 'ToDoList', task.id), { title: title, descr: descr })
     }catch(error){
       console.log(error)
     }
@@ -59,10 +61,15 @@ export const TasksList: React.FC = () => {
     }
   }
 
-  const transforDate = (dateCreate:any) => {
-    let date = dateCreate.toDate();
-    
-    return date.toString()
+  const transforDate =(time:any) => {
+      return dayjs(time).format('DD.MM.YY')
+  }
+  const deadlineDate = (dedline:any, timeCreate:any) => {
+    if(dedline !==null || timeCreate !== null)
+    console.log(timeCreate)
+    console.log(Date.parse(dedline))
+    console.log((Date.parse(dedline) - timeCreate)/86400000)
+    return dayjs(Date.parse(dedline) - timeCreate).format('DD') 
   }
 
   return (
@@ -77,15 +84,27 @@ export const TasksList: React.FC = () => {
             onChange={handleChangeID(task.id)}
             onKeyDown={e => {
               if( e.keyCode === 13) 
-                handleEdit(task,task.title, task.id)
+                handleEdit(task,task.title, task.descr,task.id)
             }}
           />
-          {/* <p>{transforDate(task.timestamp)}</p> */}
-          <p>{task.descr}</p>
+          <input 
+            type="text"
+            name='descr'
+            value={task.descr}
+            onChange={handleChangeID(task.id)}
+            onKeyDown={e => {
+              if( e.keyCode === 13) 
+                handleEdit(task, task.title, task.descr, task.id)
+            }}
+          />
           <img src={task.file} alt="img"/>
-          <p>{task.id}</p>
+          <div>
+            <p>{transforDate(task.timestamp)}</p> 
+            <p>{transforDate(task.deadline)}</p>
+            <p>deadline {deadlineDate(task.deadline, task.timestamp)}</p> 
+          </div>
           <button onClick={()=>toggleComplete(task)}>Done</button>
-          <button onClick={()=>handleEdit(task,task.title , task.id)}>Edit</button>
+          <button onClick={()=>handleEdit(task,task.title, task.descr ,task.id)}>Edit</button>
           <button onClick={()=>handleDelete(task.id)}>Del</button>
         </div>
       ))}
