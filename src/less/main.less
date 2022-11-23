@@ -1,0 +1,167 @@
+@grey: #c9c9c9;
+@blue: #2da9cf;
+
+*{
+    font-size: 20px;
+}
+body{
+    background-color: @grey;
+}
+.todo{
+    margin: 0 auto;
+    max-width: 75vw;
+    height: 100vh;
+    
+    &__add-task{
+        position: relative;
+        width: 100%;
+        height: auto;
+        background-color: #2da9cf;
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+        &_form{
+
+            display: flex;
+            flex-direction: column;
+            align-items:center;
+            padding: 25px 0px;
+            input{
+                box-sizing: border-box;
+                width: 30vw;
+                font-size: 1.2rem;
+            }
+            .task_input{
+                background-color:@grey;
+                padding: 5px 15px;
+                border: none;
+                border-radius: 5px;
+                margin-bottom: 15px;
+            }
+            div{
+                display: flex;
+                justify-content: center;
+                position: relative;
+                width: 30vw;
+                input{
+                    width: 50%;
+                }
+                margin-bottom: 15px;
+            }
+            button{
+                width: 30%;
+                align-items: center;
+                background-color:@grey;
+                border: 2px solid #818075;
+                border-radius:5px;
+                padding: 10px 0;
+                color:rgb(114, 139, 141);
+                &:hover{
+                    background-color: rgb(44, 221, 9);
+                    border: 2px solid #111111;
+                    border-radius:5px;
+                }
+            }
+            input[type="file"] {
+                display: none;
+            }
+            .custom-file-upload{
+                font-size: 1.2rem;
+                padding: 5px 10px;
+                margin-right: 35px;
+            }
+            .custom-date{
+                margin-left: 5px;
+                padding: 8px 5px;
+                font-size: .8rem;
+                min-width: 150px;
+                &_label{
+                    font-size: .6rem;
+                    color: @grey;
+                    text-transform: uppercase;
+                    
+                }
+            }
+            .custom-file-upload, .custom-date {
+                background-color: @blue;
+                color: @grey;
+                border: 2px solid #818075;
+                display: inline-block;
+                border-radius:5px;
+                cursor: pointer;
+                &:hover{
+                    border-color: #111111;
+                    background-color:rgba(2, 2, 2, 0.219);
+                    color:rgb(44, 221, 9);
+                }
+            }
+        }
+    }
+}
+
+.list{
+    background-color:#818075;
+    padding: 2% 5%;
+    display: flex;
+    gap: 25px;
+    .task{
+        position: relative;
+        padding: 7px;
+        border: 2px solid #000000;
+        display: grid;
+        width: 30vw;
+        
+        grid-template-areas:
+            'img title title'
+            'img descr descr'
+            'done edit del'
+            'timeStart finish deadline'
+        ;
+        grid-template-columns: 1fr 1fr 1fr;
+        &_title, &_descr{
+            background-color:#818075;
+            border:none;
+            border-bottom: 1px solid white;
+            border-left: 1px solid white;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+
+        &_title{
+            grid-area: title;
+        }
+        &_descr{
+            grid-area: descr;
+        }
+        &_img{
+            grid-area: img;
+        }
+        &_time-start, &_time-finish,&_time-deadline{
+            padding: 0 ;
+        }
+        &_time-start{
+            grid-area: timeStart;
+        }
+        &_time-finish{
+            grid-area: finish;
+        }
+        &_time-deadline{
+            grid-area: deadline;
+        }
+        &_done{
+            grid-area: done;
+        }
+        &_edit{
+            grid-area: edit;
+            margin: 0 10px;
+        }
+        &_del{
+            grid-area: del;
+        }
+        button {
+            margin-top: 10px !important;
+        }
+        img{
+            max-width: 120px;
+        }
+    }
+}

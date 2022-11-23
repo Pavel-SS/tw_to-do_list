@@ -1,15 +1,16 @@
 import React from 'react';
-import './App.css';
-import { AddTasks } from './component/task/AddTasks';
-import { TasksList } from './component/task/TasksList';
+
+import './css/main.css';
+
+import { AddTasks } from './component/AddTasks';
+import { TasksList } from './component/TasksList';
 
 export const App: React.FC = () => {
   return (
-    <div>
+    <div className="todo">
       <h1>ToDo</h1>
       <AddTasks />
-      <TasksList/>
+      <TasksList />
     </div>
-  )
-}
-
+  );
+};
