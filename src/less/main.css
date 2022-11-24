@@ -62,24 +62,25 @@ body {
 .todo__add-task_form input[type="file"] {
   display: none;
 }
-.todo__add-task_form .custom-file-upload {
+.todo__add-task_form .file-upload {
   font-size: 1.2rem;
-  padding: 5px 10px;
+  padding: 5px 15px 5px 20px;
   margin-right: 35px;
 }
-.todo__add-task_form .custom-date {
+.todo__add-task_form .date {
   margin-left: 5px;
   padding: 8px 5px;
   font-size: 0.8rem;
   min-width: 150px;
 }
-.todo__add-task_form .custom-date_label {
+.todo__add-task_form .date_label {
   font-size: 0.6rem;
   color: #c9c9c9;
   text-transform: uppercase;
 }
-.todo__add-task_form .custom-file-upload,
-.todo__add-task_form .custom-date {
+.todo__add-task_form .file-upload,
+.todo__add-task_form .date {
+  position: relative;
   background-color: #2da9cf;
   color: #c9c9c9;
   border: 2px solid #818075;
@@ -87,16 +88,31 @@ body {
   border-radius: 5px;
   cursor: pointer;
 }
-.todo__add-task_form .custom-file-upload:hover,
-.todo__add-task_form .custom-date:hover {
+.todo__add-task_form .file-upload:hover,
+.todo__add-task_form .date:hover {
   border-color: #111111;
   background-color: rgba(2, 2, 2, 0.219);
   color: #2cdd09;
+}
+.todo__add-task_form .upload {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  color: #2cdd09;
+  top: 100%;
+  left: 58%;
+  transform: translate(-100%, -93%);
+}
+.todo__add-task_form .upload-no {
+  display: none;
 }
 .list {
   background-color: #818075;
   padding: 2% 5%;
   display: flex;
+  flex-wrap: wrap;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
   gap: 25px;
 }
 .list .task {
@@ -126,10 +142,19 @@ body {
 .list .task_img {
   grid-area: img;
 }
-.list .task_time-start,
-.list .task_time-finish,
-.list .task_time-deadline {
+.list .task_time {
+  border: 1px solid #ffffff;
+  background-color: rgba(255, 255, 255, 0.5);
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-align: center;
   padding: 0 ;
+}
+.list .task_btn {
+  cursor: pointer;
+}
+.list .task_btn:hover {
+  color: #2da9cf;
 }
 .list .task_time-start {
   grid-area: timeStart;
@@ -149,6 +174,12 @@ body {
 }
 .list .task_del {
   grid-area: del;
+}
+.list .task .task-complite {
+  text-decoration: line-through rgba(187, 15, 15, 0.8) 5px;
+}
+.list .task_time-end {
+  color: rgba(187, 15, 15, 0.8);
 }
 .list .task button {
   margin-top: 10px !important;
